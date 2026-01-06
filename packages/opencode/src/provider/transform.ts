@@ -100,7 +100,12 @@ export namespace ProviderTransform {
   }
 
   export function schema(_model: Provider.Model, schema: JSONSchema.BaseSchema) {
-    return schema
+    // Strip fields that some APIs don't handle well
+    const cleaned = { ...schema } as Record<string, any>
+    delete cleaned["$schema"]
+    // Some APIs don't like strict additionalProperties
+    delete cleaned["additionalProperties"]
+    return cleaned as JSONSchema.BaseSchema
   }
 
   export function error(_providerID: string, error: APICallError) {

@@ -126,6 +126,8 @@ export namespace LLM {
     const tools = await resolveTools(input)
 
     return streamText({
+      // Only do 1 step - OpenCode handles multi-step tool execution itself
+      maxSteps: 1,
       onError(error) {
         l.error("stream error", {
           error,

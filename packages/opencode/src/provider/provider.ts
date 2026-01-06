@@ -281,11 +281,34 @@ export namespace Provider {
           opts.signal = combined
         }
 
+        // Clean up messages for API compatibility
+        if (opts.body) {
+          try {
+            const bodyStr = typeof opts.body === "string" ? opts.body : new TextDecoder().decode(opts.body as ArrayBuffer)
+            const parsed = JSON.parse(bodyStr)
+
+            if (parsed.messages) {
+              for (const msg of parsed.messages) {
+                // When assistant has tool_calls, set empty content to null (some APIs require this)
+                if (msg.role === "assistant" && msg.tool_calls && msg.tool_calls.length > 0) {
+                  if (msg.content && msg.content.trim() === "") {
+                    msg.content = null
+                  }
+                }
+              }
+              opts.body = JSON.stringify(parsed)
+            }
+          } catch {
+            // Ignore parse errors
+          }
+        }
+
         const response = await fetch(input, {
           ...opts,
           // @ts-ignore see here: https://github.com/oven-sh/bun/issues/16682
           timeout: false,
         })
+
 
         // For streaming responses, we need to filter out usage-only events that CoreThink sends
         // These events don't have 'choices' and cause validation errors in the AI SDK

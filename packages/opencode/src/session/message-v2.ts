@@ -515,12 +515,17 @@ export namespace MessageV2 {
                   ],
                 })
               }
+              // Ensure tool output is never empty (some APIs don't handle empty tool results)
+              let toolOutput = part.state.time.compacted ? "[Old tool result content cleared]" : part.state.output
+              if (!toolOutput || toolOutput === "") {
+                toolOutput = "Success"
+              }
               assistantMessage.parts.push({
                 type: ("tool-" + part.tool) as `tool-${string}`,
                 state: "output-available",
                 toolCallId: part.callID,
                 input: part.state.input,
-                output: part.state.time.compacted ? "[Old tool result content cleared]" : part.state.output,
+                output: toolOutput,
                 callProviderMetadata: part.metadata,
               })
             }
@@ -548,7 +553,61 @@ export namespace MessageV2 {
       }
     }
 
-    return convertToModelMessages(result.filter((msg) => msg.parts.some((part) => part.type !== "step-start")))
+    // Filter out step-start parts as they can cause duplicate messages in some APIs
+    const filtered = result
+      .map((msg) => ({
+        ...msg,
+        parts: msg.parts.filter((part) => part.type !== "step-start"),
+      }))
+      .filter((msg) => msg.parts.length > 0)
+
+    // Merge consecutive assistant messages to avoid duplicates
+    const merged = mergeConsecutiveAssistantMessages(filtered)
+
+    return convertToModelMessages(merged)
+  }
+
+  // Merge consecutive assistant messages into one to prevent duplicates
+  function mergeConsecutiveAssistantMessages(messages: UIMessage[]): UIMessage[] {
+    const result: UIMessage[] = []
+
+    for (const msg of messages) {
+      const last = result[result.length - 1]
+
+      // If current and last are both assistant messages, merge them
+      if (last && last.role === "assistant" && msg.role === "assistant") {
+        // Merge parts, avoiding duplicate tool calls by toolCallId
+        const existingToolCallIds = new Set(
+          last.parts
+            .filter((p) => p.type.startsWith("tool-"))
+            .map((p) => (p as any).toolCallId),
+        )
+
+        for (const part of msg.parts) {
+          if (part.type.startsWith("tool-")) {
+            const toolCallId = (part as any).toolCallId
+            if (!existingToolCallIds.has(toolCallId)) {
+              last.parts.push(part)
+              existingToolCallIds.add(toolCallId)
+            }
+          } else if (part.type === "text") {
+            // Only add text if it's different from existing text parts
+            const existingTexts = last.parts
+              .filter((p) => p.type === "text")
+              .map((p) => (p as any).text)
+            if (!existingTexts.includes((part as any).text)) {
+              last.parts.push(part)
+            }
+          } else {
+            last.parts.push(part)
+          }
+        }
+      } else {
+        result.push({ ...msg, parts: [...msg.parts] })
+      }
+    }
+
+    return result
   }
 
   export const stream = fn(Identifier.schema("session"), async function* (sessionID) {
