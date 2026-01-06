@@ -8,6 +8,7 @@ import { Env } from "../env"
 import { Instance } from "../project/instance"
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible"
 import type { LanguageModelV2 } from "@ai-sdk/provider"
+import { Auth } from "../auth"
 
 export namespace Provider {
   const log = Log.create({ service: "provider" })
@@ -192,8 +193,20 @@ export namespace Provider {
 
     log.info("init")
 
-    // Get API key from environment
-    const apiKey = Env.get(CORETHINK_ENV_KEY)
+    // Get API key from multiple sources (in order of priority):
+    // 1. Environment variable
+    // 2. Auth storage (from UI input)
+    // 3. Config file
+    let apiKey = Env.get(CORETHINK_ENV_KEY)
+
+    // Check auth storage if no env var
+    if (!apiKey) {
+      const authData = await Auth.get("corethink")
+      if (authData?.type === "api") {
+        apiKey = authData.key
+        log.info("found API key in auth storage")
+      }
+    }
 
     if (!apiKey) {
       log.warn("CORETHINK_API_KEY not set - corethink provider will not be available")

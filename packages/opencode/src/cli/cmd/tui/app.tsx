@@ -392,13 +392,13 @@ function App() {
       },
     },
     {
-      title: "Connect provider",
+      title: "Enter Corethink API key",
       value: "provider.connect",
       suggested: !connected(),
       onSelect: () => {
         dialog.replace(() => <DialogProviderList />)
       },
-      category: "Provider",
+      category: "Corethink",
     },
     {
       title: "View status",

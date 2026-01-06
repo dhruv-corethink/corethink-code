@@ -10,8 +10,8 @@ process.chdir(dir)
 const { binaries } = await import("./build.ts")
 {
   const name = `${pkg.name}-${process.platform}-${process.arch}`
-  console.log(`smoke test: running dist/${name}/bin/opencode --version`)
-  await $`./dist/${name}/bin/opencode --version`
+  console.log(`smoke test: running dist/${name}/bin/corethink-code --version`)
+  await $`./dist/${name}/bin/corethink-code --version`
 }
 
 await $`mkdir -p ./dist/${pkg.name}`
@@ -21,7 +21,7 @@ await $`cp ./script/postinstall.mjs ./dist/${pkg.name}/postinstall.mjs`
 await Bun.file(`./dist/${pkg.name}/package.json`).write(
   JSON.stringify(
     {
-      name: pkg.name + "-ai",
+      name: pkg.name,
       bin: {
         [pkg.name]: `./bin/${pkg.name}`,
       },

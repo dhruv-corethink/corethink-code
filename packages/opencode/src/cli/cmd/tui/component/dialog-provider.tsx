@@ -1,5 +1,6 @@
 import { createMemo, createSignal, onMount, Show } from "solid-js"
 import { useSync } from "@tui/context/sync"
+import { useLocal } from "@tui/context/local"
 import { map, pipe, sortBy } from "remeda"
 import { DialogSelect } from "@tui/ui/dialog-select"
 import { useDialog } from "@tui/ui/dialog"
@@ -82,8 +83,8 @@ export function createDialogProviderOptions() {
 }
 
 export function DialogProvider() {
-  const options = createDialogProviderOptions()
-  return <DialogSelect title="Connect a provider" options={options()} />
+  // Directly show Corethink API key input instead of provider selection
+  return <ApiMethod providerID="corethink" title="Enter your Corethink API key" />
 }
 
 interface AutoMethodProps {
@@ -182,6 +183,7 @@ function ApiMethod(props: ApiMethodProps) {
   const sdk = useSDK()
   const sync = useSync()
   const { theme } = useTheme()
+  const local = useLocal()
 
   return (
     <DialogPrompt
@@ -201,7 +203,7 @@ function ApiMethod(props: ApiMethodProps) {
       }
       onConfirm={async (value) => {
         if (!value) return
-        sdk.client.auth.set({
+        await sdk.client.auth.set({
           providerID: props.providerID,
           auth: {
             type: "api",
@@ -210,7 +212,16 @@ function ApiMethod(props: ApiMethodProps) {
         })
         await sdk.client.instance.dispose()
         await sync.bootstrap()
-        dialog.replace(() => <DialogModel providerID={props.providerID} />)
+        // Auto-select corethink model and close dialog
+        if (props.providerID === "corethink") {
+          local.model.set(
+            { providerID: "corethink", modelID: "corethink" },
+            { recent: true }
+          )
+          dialog.clear()
+        } else {
+          dialog.replace(() => <DialogModel providerID={props.providerID} />)
+        }
       }}
     />
   )

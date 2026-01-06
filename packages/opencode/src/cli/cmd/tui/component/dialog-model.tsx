@@ -164,17 +164,18 @@ export function DialogModel(props: { providerID?: string }) {
       ),
     )
 
+    // Show prompt to add Corethink API key when not connected
     const popularProviders = !connected()
-      ? pipe(
-          providers(),
-          map((option) => {
-            return {
-              ...option,
-              category: "Popular providers",
-            }
-          }),
-          take(6),
-        )
+      ? [
+          {
+            title: "Add Corethink API key",
+            value: "add-corethink",
+            category: "Get started",
+            onSelect() {
+              dialog.replace(() => <DialogProvider />)
+            },
+          },
+        ]
       : []
 
     // Apply fuzzy filtering to each section separately, maintaining section order
@@ -206,7 +207,7 @@ export function DialogModel(props: { providerID?: string }) {
       keybind={[
         {
           keybind: Keybind.parse("ctrl+a")[0],
-          title: connected() ? "Connect provider" : "View all providers",
+          title: "Enter Corethink API key",
           onTrigger() {
             dialog.replace(() => <DialogProvider />)
           },
