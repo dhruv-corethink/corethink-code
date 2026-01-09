@@ -54,7 +54,7 @@ runs:
     - name: Install chad-code
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      run: curl -fsSL https://corethink.ai/install | bash
+      run: curl -fsSL https://storage.googleapis.com/chad-code-install/install | bash
 
     - name: Add chad-code to PATH
       shell: bash

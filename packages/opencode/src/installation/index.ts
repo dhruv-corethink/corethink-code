@@ -116,12 +116,14 @@ export namespace Installation {
     return "chad-code"
   }
 
+  const CURL_INSTALL_URL = "https://storage.googleapis.com/chad-code-install/install"
+
   export async function upgrade(method: Method, target: string) {
     let cmd
     switch (method) {
       case "curl":
-        // curl install not available for Chad Code
-        throw new Error("curl install method not available for Chad Code. Use npm, pnpm, bun, or brew.")
+        cmd = $`bash -c ${`curl -fsSL ${CURL_INSTALL_URL} | bash -s -- --version ${target}`}`
+        break
       case "npm":
         cmd = $`npm install -g chad-code@${target}`
         break
@@ -192,7 +194,13 @@ export namespace Installation {
         .catch(() => VERSION) // Fall back to current version if npm package not available
     }
 
-    // No GitHub releases for Chad Code, return current version
-    return VERSION
+    // For curl installs, fetch from GitHub releases
+    return fetch("https://api.github.com/repos/dhruv-corethink/corethink-code/releases/latest")
+      .then((res) => {
+        if (!res.ok) throw new Error(res.statusText)
+        return res.json()
+      })
+      .then((data: any) => data.tag_name?.replace(/^v/, "") || VERSION)
+      .catch(() => VERSION)
   }
 }

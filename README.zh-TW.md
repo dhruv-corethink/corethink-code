@@ -22,7 +22,7 @@
 
 ```bash
 # 直接安裝 (YOLO)
-curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://storage.googleapis.com/chad-code-install/install | bash
 
 # 套件管理員
 npm i -g opencode-ai@latest        # 也可使用 bun/pnpm/yarn
@@ -64,8 +64,8 @@ brew install --cask opencode-desktop
 
 ```bash
 # 範例
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
+OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://storage.googleapis.com/chad-code-install/install | bash
+XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://storage.googleapis.com/chad-code-install/install | bash
 ```
 
 ### Agents

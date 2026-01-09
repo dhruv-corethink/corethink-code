@@ -32,7 +32,7 @@ npx chad-code
 ## Requirements
 
 - Node.js 18+ or Bun
-- A Chadcode API key (get one at [corethink.ai](https://corethink.ai))
+- A Chadcode API key (get one at [chadcode.dev](https://chadcode.dev))
 
 ## Usage
 
@@ -52,12 +52,11 @@ chad-code --help
 
 ## Documentation
 
-Visit [corethink.ai/docs](https://corethink.ai/docs) for full documentation.
+Visit [chadcode-docs.docsalot.dev](https://chadcode-docs.docsalot.dev/getting-started) for full documentation.
 
 ## Support
 
-- Report issues: [GitHub Issues](https://github.com/corethink-ai/chad-code/issues)
-- Website: [corethink.ai](https://corethink.ai)
+- Website: [chadcode.dev](https://chadcode.dev)
 
 ## License
 

@@ -37,13 +37,13 @@ await Bun.file(`./dist/${pkg.name}/package.json`).write(
         "chad",
         "llm",
       ],
-      homepage: "https://corethink.ai",
+      homepage: "https://chadcode.dev",
       repository: {
         type: "git",
-        url: "https://github.com/corethink-ai/corethink-code",
+        url: "https://github.com/ChadCode007/chad-code",
       },
       bugs: {
-        url: "https://github.com/corethink-ai/corethink-code/issues",
+        url: "https://github.com/ChadCode007/chad-code/issues",
       },
       bin: {
         [pkg.name]: `./bin/${pkg.name}`,
