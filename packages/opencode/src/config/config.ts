@@ -45,7 +45,7 @@ export namespace Config {
       log.debug("loaded custom config", { path: Flag.OPENCODE_CONFIG })
     }
 
-    for (const file of ["corethink-code.jsonc", "corethink-code.json", "opencode.jsonc", "opencode.json"]) {
+    for (const file of ["chad-code.jsonc", "chad-code.json", "opencode.jsonc", "opencode.json"]) {
       const found = await Filesystem.findUp(file, Instance.directory, Instance.worktree)
       for (const resolved of found.toReversed()) {
         result = mergeConfigConcatArrays(result, await loadFile(resolved))
@@ -73,14 +73,14 @@ export namespace Config {
       Global.Path.config,
       ...(await Array.fromAsync(
         Filesystem.up({
-          targets: [".corethink-code", ".opencode"],
+          targets: [".chad-code", ".opencode"],
           start: Instance.directory,
           stop: Instance.worktree,
         }),
       )),
       ...(await Array.fromAsync(
         Filesystem.up({
-          targets: [".corethink-code", ".opencode"],
+          targets: [".chad-code", ".opencode"],
           start: Global.Path.home,
           stop: Global.Path.home,
         }),
@@ -93,8 +93,8 @@ export namespace Config {
     }
 
     for (const dir of unique(directories)) {
-      if (dir.endsWith(".corethink-code") || dir.endsWith(".opencode") || dir === Flag.OPENCODE_CONFIG_DIR) {
-        for (const file of ["corethink-code.jsonc", "corethink-code.json", "opencode.jsonc", "opencode.json"]) {
+      if (dir.endsWith(".chad-code") || dir.endsWith(".opencode") || dir === Flag.OPENCODE_CONFIG_DIR) {
+        for (const file of ["chad-code.jsonc", "chad-code.json", "opencode.jsonc", "opencode.json"]) {
           log.debug(`loading config from ${path.join(dir, file)}`)
           result = mergeConfigConcatArrays(result, await loadFile(path.join(dir, file)))
           // to satisfy the type checker
@@ -744,7 +744,7 @@ export namespace Config {
       keybinds: Keybinds.optional().describe("Custom keybind configurations"),
       logLevel: Log.Level.optional().describe("Log level"),
       tui: TUI.optional().describe("TUI specific settings"),
-      server: Server.optional().describe("Server configuration for corethink-code serve and web commands"),
+      server: Server.optional().describe("Server configuration for chad-code serve and web commands"),
       command: z
         .record(z.string(), Command)
         .optional()
@@ -955,8 +955,8 @@ export namespace Config {
     let result: Info = pipe(
       {},
       mergeDeep(await loadFile(path.join(Global.Path.config, "config.json"))),
-      mergeDeep(await loadFile(path.join(Global.Path.config, "corethink-code.json"))),
-      mergeDeep(await loadFile(path.join(Global.Path.config, "corethink-code.jsonc"))),
+      mergeDeep(await loadFile(path.join(Global.Path.config, "chad-code.json"))),
+      mergeDeep(await loadFile(path.join(Global.Path.config, "chad-code.jsonc"))),
       // Legacy support
       mergeDeep(await loadFile(path.join(Global.Path.config, "opencode.json"))),
       mergeDeep(await loadFile(path.join(Global.Path.config, "opencode.jsonc"))),

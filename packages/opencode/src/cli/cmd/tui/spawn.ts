@@ -10,7 +10,7 @@ export const TuiSpawnCommand = cmd({
   builder: (yargs) =>
     withNetworkOptions(yargs).positional("project", {
       type: "string",
-      describe: "path to start corethink-code in",
+      describe: "path to start chad-code in",
     }),
   handler: async (args) => {
     upgrade()

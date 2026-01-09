@@ -24,7 +24,7 @@ import nightowl from "./theme/nightowl.json" with { type: "json" }
 import nord from "./theme/nord.json" with { type: "json" }
 import osakaJade from "./theme/osaka-jade.json" with { type: "json" }
 import onedark from "./theme/one-dark.json" with { type: "json" }
-import corethink from "./theme/corethink.json" with { type: "json" }
+import chad from "./theme/chad.json" with { type: "json" }
 import orng from "./theme/orng.json" with { type: "json" }
 import lucentOrng from "./theme/lucent-orng.json" with { type: "json" }
 import palenight from "./theme/palenight.json" with { type: "json" }
@@ -157,7 +157,7 @@ export const DEFAULT_THEMES: Record<string, ThemeJson> = {
   nord,
   ["one-dark"]: onedark,
   ["osaka-jade"]: osakaJade,
-  corethink,
+  chad,
   orng,
   ["lucent-orng"]: lucentOrng,
   palenight,
@@ -281,7 +281,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
     const [store, setStore] = createStore({
       themes: DEFAULT_THEMES,
       mode: kv.get("theme_mode", props.mode),
-      active: (sync.data.config.theme ?? kv.get("theme", "corethink")) as string,
+      active: (sync.data.config.theme ?? kv.get("theme", "chad")) as string,
       ready: false,
     })
 
@@ -301,7 +301,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
           )
         })
         .catch(() => {
-          setStore("active", "corethink")
+          setStore("active", "chad")
         })
         .finally(() => {
           if (store.active !== "system") {
@@ -320,7 +320,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
           if (store.active === "system") {
             setStore(
               produce((draft) => {
-                draft.active = "corethink"
+                draft.active = "chad"
                 draft.ready = true
               }),
             )
@@ -338,7 +338,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
       })
 
     const values = createMemo(() => {
-      return resolveTheme(store.themes[store.active] ?? store.themes.corethink, store.mode)
+      return resolveTheme(store.themes[store.active] ?? store.themes.chad, store.mode)
     })
 
     const syntax = createMemo(() => generateSyntax(values()))

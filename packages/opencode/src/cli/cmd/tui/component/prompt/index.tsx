@@ -76,7 +76,7 @@ export function Prompt(props: PromptProps) {
   function promptModelWarning() {
     toast.show({
       variant: "warning",
-      message: "Enter your Corethink API key to send prompts",
+      message: "Enter your Chadcode API key to send prompts",
       duration: 3000,
     })
     if (sync.data.provider.length === 0) {

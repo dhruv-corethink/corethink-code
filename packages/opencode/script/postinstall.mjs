@@ -49,8 +49,8 @@ function detectPlatformAndArch() {
 
 function findBinary() {
   const { platform, arch } = detectPlatformAndArch()
-  const packageName = `corethink-code-${platform}-${arch}`
-  const binaryName = platform === "windows" ? "corethink-code.exe" : "corethink-code"
+  const packageName = `chad-code-${platform}-${arch}`
+  const binaryName = platform === "windows" ? "chad-code.exe" : "chad-code"
 
   try {
     // Use require.resolve to find the package
@@ -89,7 +89,7 @@ function symlinkBinary(sourcePath, binaryName) {
   const { targetPath } = prepareBinDirectory(binaryName)
 
   fs.symlinkSync(sourcePath, targetPath)
-  console.log(`corethink-code binary symlinked: ${targetPath} -> ${sourcePath}`)
+  console.log(`chad-code binary symlinked: ${targetPath} -> ${sourcePath}`)
 
   // Verify the file exists after operation
   if (!fs.existsSync(targetPath)) {
@@ -109,7 +109,7 @@ async function main() {
     const { binaryPath, binaryName } = findBinary()
     symlinkBinary(binaryPath, binaryName)
   } catch (error) {
-    console.error("Failed to setup corethink-code binary:", error.message)
+    console.error("Failed to setup chad-code binary:", error.message)
     process.exit(1)
   }
 }

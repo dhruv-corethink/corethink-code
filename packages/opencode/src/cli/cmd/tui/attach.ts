@@ -3,7 +3,7 @@ import { tui } from "./app"
 
 export const AttachCommand = cmd({
   command: "attach <url>",
-  describe: "attach to a running corethink-code server",
+  describe: "attach to a running chad-code server",
   builder: (yargs) =>
     yargs
       .positional("url", {

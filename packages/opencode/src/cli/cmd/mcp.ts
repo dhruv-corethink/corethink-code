@@ -159,7 +159,7 @@ export const McpAuthCommand = cmd({
 
         if (oauthServers.length === 0) {
           prompts.log.warn("No OAuth-capable MCP servers configured")
-          prompts.log.info("Remote MCP servers support OAuth by default. Add a remote server in corethink-code.json:")
+          prompts.log.info("Remote MCP servers support OAuth by default. Add a remote server in chad-code.json:")
           prompts.log.info(`
   "mcp": {
     "my-server": {
@@ -457,7 +457,7 @@ export const McpAddCommand = cmd({
           }
 
           prompts.log.info(`Remote MCP server "${name}" configured with OAuth (client ID: ${clientId})`)
-          prompts.log.info("Add this to your corethink-code.json:")
+          prompts.log.info("Add this to your chad-code.json:")
           prompts.log.info(`
   "mcp": {
     "${name}": {
@@ -470,7 +470,7 @@ export const McpAddCommand = cmd({
   }`)
         } else {
           prompts.log.info(`Remote MCP server "${name}" configured with OAuth (dynamic registration)`)
-          prompts.log.info("Add this to your corethink-code.json:")
+          prompts.log.info("Add this to your chad-code.json:")
           prompts.log.info(`
   "mcp": {
     "${name}": {

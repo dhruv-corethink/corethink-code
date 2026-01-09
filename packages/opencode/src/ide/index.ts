@@ -52,8 +52,8 @@ export namespace Ide {
     const cmd = SUPPORTED_IDES.find((i) => i.name === ide)?.cmd
     if (!cmd) throw new Error(`Unknown IDE: ${ide}`)
 
-    // Note: CoreThink Code VSCode extension not yet available
-    const p = spawn([cmd, "--install-extension", "corethink.corethink-code"], {
+    // Note: Chad Code VSCode extension not yet available
+    const p = spawn([cmd, "--install-extension", "chad.chad-code"], {
       stdout: "pipe",
       stderr: "pipe",
     })

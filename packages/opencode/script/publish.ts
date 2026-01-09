@@ -10,25 +10,48 @@ process.chdir(dir)
 const { binaries } = await import("./build.ts")
 {
   const name = `${pkg.name}-${process.platform}-${process.arch}`
-  console.log(`smoke test: running dist/${name}/bin/corethink-code --version`)
-  await $`./dist/${name}/bin/corethink-code --version`
+  console.log(`smoke test: running dist/${name}/bin/chad-code --version`)
+  await $`./dist/${name}/bin/chad-code --version`
 }
 
 await $`mkdir -p ./dist/${pkg.name}`
 await $`cp -r ./bin ./dist/${pkg.name}/bin`
 await $`cp ./script/postinstall.mjs ./dist/${pkg.name}/postinstall.mjs`
+await $`cp ./README.npm.md ./dist/${pkg.name}/README.md`
 
 await Bun.file(`./dist/${pkg.name}/package.json`).write(
   JSON.stringify(
     {
       name: pkg.name,
+      version: Script.version,
+      description: "AI-powered coding assistant for your terminal",
+      license: "MIT",
+      keywords: [
+        "ai",
+        "coding",
+        "assistant",
+        "cli",
+        "terminal",
+        "code-generation",
+        "developer-tools",
+        "chad",
+        "llm",
+      ],
+      homepage: "https://corethink.ai",
+      repository: {
+        type: "git",
+        url: "https://github.com/corethink-ai/corethink-code",
+      },
+      bugs: {
+        url: "https://github.com/corethink-ai/corethink-code/issues",
+      },
       bin: {
         [pkg.name]: `./bin/${pkg.name}`,
       },
       scripts: {
         postinstall: "bun ./postinstall.mjs || node ./postinstall.mjs",
       },
-      version: Script.version,
+      preferGlobal: true,
       optionalDependencies: binaries,
     },
     null,
@@ -62,7 +85,7 @@ if (!Script.preview) {
     }
   }
 
-  const image = "ghcr.io/anomalyco/opencode"
+  const image = "ghcr.io/corethink-ai/chad-code"
   const platforms = "linux/amd64,linux/arm64"
   const tags = [`${image}:${Script.version}`, `${image}:latest`]
   const tagFlags = tags.flatMap((t) => ["-t", t])

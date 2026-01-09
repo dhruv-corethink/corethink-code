@@ -37,7 +37,7 @@ export const AuthListCommand = cmd({
     if (process.env.CORETHINK_API_KEY) {
       UI.empty()
       prompts.intro("Environment")
-      prompts.log.info(`CoreThink ${UI.Style.TEXT_DIM}CORETHINK_API_KEY`)
+      prompts.log.info(`Chad ${UI.Style.TEXT_DIM}CORETHINK_API_KEY`)
       prompts.outro("1 environment variable")
     }
   },
@@ -45,7 +45,7 @@ export const AuthListCommand = cmd({
 
 export const AuthLoginCommand = cmd({
   command: "login [url]",
-  describe: "log in to CoreThink",
+  describe: "log in to Chad",
   builder: (yargs) =>
     yargs.positional("url", {
       describe: "opencode auth provider",
@@ -56,7 +56,7 @@ export const AuthLoginCommand = cmd({
       directory: process.cwd(),
       async fn() {
         UI.empty()
-        prompts.intro("Add CoreThink credential")
+        prompts.intro("Add Chad credential")
 
         if (args.url) {
           const wellknown = await fetch(`${args.url}/.well-known/opencode`).then((x) => x.json() as any)
@@ -82,14 +82,14 @@ export const AuthLoginCommand = cmd({
           return
         }
 
-        prompts.log.info("Get your CoreThink API key from the CoreThink dashboard")
+        prompts.log.info("Get your Chadcode API key from the Chadcode dashboard")
         prompts.log.info("API keys should start with 'sk_'")
 
         const key = await prompts.password({
-          message: "Enter your CoreThink API key",
+          message: "Enter your Chadcode API key",
           validate: (x) => {
             if (!x || x.length === 0) return "Required"
-            if (!x.startsWith("sk_")) return "CoreThink API keys should start with 'sk_'"
+            if (!x.startsWith("sk_")) return "Chadcode API keys should start with 'sk_'"
             return undefined
           },
         })
@@ -100,7 +100,7 @@ export const AuthLoginCommand = cmd({
           key,
         })
 
-        prompts.log.success("CoreThink API key saved")
+        prompts.log.success("Chadcode API key saved")
         prompts.outro("Done")
       },
     })
@@ -109,7 +109,7 @@ export const AuthLoginCommand = cmd({
 
 export const AuthLogoutCommand = cmd({
   command: "logout",
-  describe: "log out from CoreThink",
+  describe: "log out from Chad",
   async handler() {
     UI.empty()
     const credentials = await Auth.all().then((x) => Object.entries(x))

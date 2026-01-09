@@ -126,7 +126,7 @@ export namespace LLM {
     const tools = await resolveTools(input)
 
     return streamText({
-      // Only do 1 step - OpenCode handles multi-step tool execution itself
+      // @ts-expect-error - maxSteps prevents AI SDK auto-continuation, OpenCode handles stepping itself
       maxSteps: 1,
       onError(error) {
         l.error("stream error", {

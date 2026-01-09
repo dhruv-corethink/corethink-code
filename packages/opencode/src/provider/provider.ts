@@ -119,7 +119,7 @@ export namespace Provider {
     return {
       id: "corethink",
       providerID: "corethink",
-      name: "CoreThink",
+      name: "Chadcode",
       api: {
         id: "corethink",
         url: CORETHINK_API_URL,
@@ -170,7 +170,7 @@ export namespace Provider {
   function createCorethinkProvider(apiKey?: string): Info {
     return {
       id: "corethink",
-      name: "CoreThink",
+      name: "Chadcode",
       source: apiKey ? "env" : "config",
       env: [CORETHINK_ENV_KEY],
       key: apiKey,
@@ -482,7 +482,7 @@ export namespace Provider {
 
     const providers = await list()
     const provider = providers["corethink"]
-    if (!provider) throw new Error("CoreThink provider not found. Please set CORETHINK_API_KEY environment variable.")
+    if (!provider) throw new Error("Chad provider not found. Please set CORETHINK_API_KEY environment variable.")
 
     return {
       providerID: "corethink",

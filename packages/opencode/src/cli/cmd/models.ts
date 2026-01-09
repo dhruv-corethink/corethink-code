@@ -7,7 +7,7 @@ import { EOL } from "os"
 
 export const ModelsCommand = cmd({
   command: "models",
-  describe: "list available CoreThink models",
+  describe: "list available Chad models",
   builder: (yargs: Argv) => {
     return yargs.option("verbose", {
       describe: "use more verbose model output (includes metadata like costs)",

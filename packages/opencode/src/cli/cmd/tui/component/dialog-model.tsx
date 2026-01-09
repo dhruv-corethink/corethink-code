@@ -164,11 +164,11 @@ export function DialogModel(props: { providerID?: string }) {
       ),
     )
 
-    // Show prompt to add Corethink API key when not connected
+    // Show prompt to add Chadcode API key when not connected
     const popularProviders = !connected()
       ? [
           {
-            title: "Add Corethink API key",
+            title: "Add Chadcode API key",
             value: "add-corethink",
             category: "Get started",
             onSelect() {
@@ -207,7 +207,7 @@ export function DialogModel(props: { providerID?: string }) {
       keybind={[
         {
           keybind: Keybind.parse("ctrl+a")[0],
-          title: "Enter Corethink API key",
+          title: "Enter Chadcode API key",
           onTrigger() {
             dialog.replace(() => <DialogProvider />)
           },

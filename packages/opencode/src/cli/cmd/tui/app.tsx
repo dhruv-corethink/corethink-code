@@ -204,14 +204,14 @@ function App() {
     if (!terminalTitleEnabled() || Flag.OPENCODE_DISABLE_TERMINAL_TITLE) return
 
     if (route.data.type === "home") {
-      renderer.setTerminalTitle("CoreThink Code")
+      renderer.setTerminalTitle("Chad Code")
       return
     }
 
     if (route.data.type === "session") {
       const session = sync.session.get(route.data.sessionID)
       if (!session || SessionApi.isDefaultTitle(session.title)) {
-        renderer.setTerminalTitle("CoreThink Code")
+        renderer.setTerminalTitle("Chad Code")
         return
       }
 
@@ -392,13 +392,13 @@ function App() {
       },
     },
     {
-      title: "Enter Corethink API key",
+      title: "Enter Chadcode API key",
       value: "provider.connect",
       suggested: !connected(),
       onSelect: () => {
         dialog.replace(() => <DialogProviderList />)
       },
-      category: "Corethink",
+      category: "Chad",
     },
     {
       title: "View status",
@@ -580,7 +580,7 @@ function App() {
     toast.show({
       variant: "success",
       title: "Update Complete",
-      message: `CoreThink Code updated to v${evt.properties.version}`,
+      message: `Chad Code updated to v${evt.properties.version}`,
       duration: 5000,
     })
   })
@@ -589,7 +589,7 @@ function App() {
     toast.show({
       variant: "info",
       title: "Update Available",
-      message: `CoreThink Code v${evt.properties.version} is available. Run 'corethink-code upgrade' to update manually.`,
+      message: `Chad Code v${evt.properties.version} is available. Run 'chad-code upgrade' to update manually.`,
       duration: 10000,
     })
   })
@@ -644,7 +644,7 @@ function ErrorComponent(props: {
   })
   const [copied, setCopied] = createSignal(false)
 
-  const issueURL = new URL("https://github.com/corethink-ai/corethink-code/issues/new?template=bug-report.yml")
+  const issueURL = new URL("https://github.com/corethink-ai/chad-code/issues/new?template=bug-report.yml")
 
   // Choose safe fallback colors per mode since theme context may not be available
   const isLight = props.mode === "light"

@@ -14,12 +14,12 @@ declare global {
 
 export const TuiThreadCommand = cmd({
   command: "$0 [project]",
-  describe: "start corethink-code tui",
+  describe: "start chad-code tui",
   builder: (yargs) =>
     withNetworkOptions(yargs)
       .positional("project", {
         type: "string",
-        describe: "path to start corethink-code in",
+        describe: "path to start chad-code in",
       })
       .option("model", {
         type: "string",

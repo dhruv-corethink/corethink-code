@@ -83,8 +83,8 @@ export function createDialogProviderOptions() {
 }
 
 export function DialogProvider() {
-  // Directly show Corethink API key input instead of provider selection
-  return <ApiMethod providerID="corethink" title="Enter your Corethink API key" />
+  // Directly show Chadcode API key input instead of provider selection
+  return <ApiMethod providerID="corethink" title="Enter your Chadcode API key" />
 }
 
 interface AutoMethodProps {
@@ -193,7 +193,7 @@ function ApiMethod(props: ApiMethodProps) {
         props.providerID === "corethink" ? (
           <box gap={1}>
             <text fg={theme.textMuted}>
-              CoreThink provides AI-powered code assistance. Get your API key from the CoreThink dashboard.
+              Chadcode provides AI-powered code assistance. Get your API key from the Chadcode dashboard.
             </text>
             <text fg={theme.text}>
               API keys should start with <span style={{ fg: theme.primary }}>sk_</span>

@@ -132,7 +132,7 @@ export namespace Server {
         "/global/health",
         describeRoute({
           summary: "Get health",
-          description: "Get health information about the CoreThink Code server.",
+          description: "Get health information about the Chad Code server.",
           operationId: "global.health",
           responses: {
             200: {
@@ -153,7 +153,7 @@ export namespace Server {
         "/global/event",
         describeRoute({
           summary: "Get global events",
-          description: "Subscribe to global events from the CoreThink Code system using server-sent events.",
+          description: "Subscribe to global events from the Chad Code system using server-sent events.",
           operationId: "global.event",
           responses: {
             200: {
@@ -220,7 +220,7 @@ export namespace Server {
         "/global/dispose",
         describeRoute({
           summary: "Dispose instance",
-          description: "Clean up and dispose all CoreThink Code instances, releasing all resources.",
+          description: "Clean up and dispose all Chad Code instances, releasing all resources.",
           operationId: "global.dispose",
           responses: {
             200: {

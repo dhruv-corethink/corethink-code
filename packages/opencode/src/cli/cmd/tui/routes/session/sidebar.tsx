@@ -289,7 +289,7 @@ export function Sidebar(props: { sessionID: string }) {
                     ✕
                   </text>
                 </box>
-                <text fg={theme.textMuted}>CoreThink Code includes free models so you can start immediately.</text>
+                <text fg={theme.textMuted}>Chad Code includes free models so you can start immediately.</text>
                 <text fg={theme.textMuted}>
                   Configure your CORETHINK_API_KEY to get started.
                 </text>
@@ -305,7 +305,7 @@ export function Sidebar(props: { sessionID: string }) {
             <span style={{ fg: theme.text }}>{directory().split("/").at(-1)}</span>
           </text>
           <text fg={theme.textMuted}>
-            <span style={{ fg: theme.success }}>•</span> <b>CoreThink</b>
+            <span style={{ fg: theme.success }}>•</span> <b>Chad</b>
             <span style={{ fg: theme.text }}>
               <b>Code</b>
             </span>{" "}

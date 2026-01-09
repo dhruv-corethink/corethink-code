@@ -58,7 +58,7 @@ export namespace Installation {
   }
 
   export async function method() {
-    if (process.execPath.includes(path.join(".corethink-code", "bin"))) return "curl"
+    if (process.execPath.includes(path.join(".chad-code", "bin"))) return "curl"
     if (process.execPath.includes(path.join(".local", "bin"))) return "curl"
     const exec = process.execPath.toLowerCase()
 
@@ -81,7 +81,7 @@ export namespace Installation {
       },
       {
         name: "brew" as const,
-        command: () => $`brew list --formula corethink-code`.throws(false).quiet().text(),
+        command: () => $`brew list --formula chad-code`.throws(false).quiet().text(),
       },
     ]
 
@@ -95,7 +95,7 @@ export namespace Installation {
 
     for (const check of checks) {
       const output = await check.command()
-      if (output.includes(check.name === "brew" ? "corethink-code" : "corethink-code")) {
+      if (output.includes(check.name === "brew" ? "chad-code" : "chad-code")) {
         return check.name
       }
     }
@@ -111,25 +111,25 @@ export namespace Installation {
   )
 
   async function getBrewFormula() {
-    const coreFormula = await $`brew list --formula corethink-code`.throws(false).quiet().text()
-    if (coreFormula.includes("corethink-code")) return "corethink-code"
-    return "corethink-code"
+    const coreFormula = await $`brew list --formula chad-code`.throws(false).quiet().text()
+    if (coreFormula.includes("chad-code")) return "chad-code"
+    return "chad-code"
   }
 
   export async function upgrade(method: Method, target: string) {
     let cmd
     switch (method) {
       case "curl":
-        // curl install not available for CoreThink Code
-        throw new Error("curl install method not available for CoreThink Code. Use npm, pnpm, bun, or brew.")
+        // curl install not available for Chad Code
+        throw new Error("curl install method not available for Chad Code. Use npm, pnpm, bun, or brew.")
       case "npm":
-        cmd = $`npm install -g corethink-code@${target}`
+        cmd = $`npm install -g chad-code@${target}`
         break
       case "pnpm":
-        cmd = $`pnpm install -g corethink-code@${target}`
+        cmd = $`pnpm install -g chad-code@${target}`
         break
       case "bun":
-        cmd = $`bun install -g corethink-code@${target}`
+        cmd = $`bun install -g chad-code@${target}`
         break
       case "brew": {
         const formula = await getBrewFormula()
@@ -158,15 +158,15 @@ export namespace Installation {
 
   export const VERSION = typeof OPENCODE_VERSION === "string" ? OPENCODE_VERSION : "local"
   export const CHANNEL = typeof OPENCODE_CHANNEL === "string" ? OPENCODE_CHANNEL : "local"
-  export const USER_AGENT = `corethink-code/${CHANNEL}/${VERSION}/${Flag.OPENCODE_CLIENT}`
+  export const USER_AGENT = `chad-code/${CHANNEL}/${VERSION}/${Flag.OPENCODE_CLIENT}`
 
   export async function latest(installMethod?: Method) {
     const detectedMethod = installMethod || (await method())
 
     if (detectedMethod === "brew") {
       const formula = await getBrewFormula()
-      if (formula === "corethink-code") {
-        return fetch("https://formulae.brew.sh/api/formula/corethink-code.json")
+      if (formula === "chad-code") {
+        return fetch("https://formulae.brew.sh/api/formula/chad-code.json")
           .then((res) => {
             if (!res.ok) throw new Error(res.statusText)
             return res.json()
@@ -183,7 +183,7 @@ export namespace Installation {
         return reg.endsWith("/") ? reg.slice(0, -1) : reg
       })
       const channel = CHANNEL
-      return fetch(`${registry}/corethink-code/${channel}`)
+      return fetch(`${registry}/chad-code/${channel}`)
         .then((res) => {
           if (!res.ok) throw new Error(res.statusText)
           return res.json()
@@ -192,7 +192,7 @@ export namespace Installation {
         .catch(() => VERSION) // Fall back to current version if npm package not available
     }
 
-    // No GitHub releases for CoreThink Code, return current version
+    // No GitHub releases for Chad Code, return current version
     return VERSION
   }
 }
