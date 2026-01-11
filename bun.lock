@@ -22,7 +22,7 @@
     },
     "packages/opencode": {
       "name": "chad-code",
-      "version": "1.3.2",
+      "version": "1.3.5",
       "bin": {
         "chad-code": "./bin/chad-code",
       },
