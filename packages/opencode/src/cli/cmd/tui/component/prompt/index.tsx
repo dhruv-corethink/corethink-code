@@ -752,13 +752,10 @@ export function Prompt(props: PromptProps) {
             paddingRight={2}
             paddingTop={1}
             flexShrink={0}
-            backgroundColor={theme.backgroundElement}
             flexGrow={1}
           >
             <textarea
-              placeholder={props.sessionID ? undefined : `Ask anything... "${PLACEHOLDERS[store.placeholder]}"`}
-              textColor={keybind.leader ? theme.textMuted : theme.text}
-              focusedTextColor={keybind.leader ? theme.textMuted : theme.text}
+              syntaxStyle={syntax()}
               minHeight={1}
               maxHeight={6}
               onContentChange={() => {
@@ -921,29 +918,27 @@ export function Prompt(props: PromptProps) {
                 }, 0)
               }}
               onMouseDown={(r: MouseEvent) => r.target?.focus()}
-              focusedBackgroundColor={theme.backgroundElement}
               cursorColor={theme.text}
-              syntaxStyle={syntax()}
             />
-            <box flexDirection="row" flexShrink={0} paddingTop={1} gap={1}>
-              <text fg={highlight()}>
-                {store.mode === "shell" ? "Shell" : Locale.titlecase(local.agent.current().name)}{" "}
-              </text>
-              <Show when={store.mode === "normal"}>
-                <box flexDirection="row" gap={1}>
-                  <text flexShrink={0} fg={keybind.leader ? theme.textMuted : theme.text}>
-                    {local.model.parsed().model}
+          </box>
+          <box flexDirection="row" flexShrink={0} paddingTop={1} paddingLeft={2} paddingRight={2} gap={1}>
+            <text fg={highlight()}>
+              {store.mode === "shell" ? "Shell" : Locale.titlecase(local.agent.current().name)}{" "}
+            </text>
+            <Show when={store.mode === "normal"}>
+              <box flexDirection="row" gap={1}>
+                <text flexShrink={0} fg={theme.text}>
+                  {local.model.parsed().model}
+                </text>
+                <text fg={theme.text}>{local.model.parsed().provider}</text>
+                <Show when={showVariant()}>
+                  <text fg={theme.textMuted}>·</text>
+                  <text>
+                    <span style={{ fg: theme.warning, bold: true }}>{local.model.variant.current()}</span>
                   </text>
-                  <text fg={theme.textMuted}>{local.model.parsed().provider}</text>
-                  <Show when={showVariant()}>
-                    <text fg={theme.textMuted}>·</text>
-                    <text>
-                      <span style={{ fg: theme.warning, bold: true }}>{local.model.variant.current()}</span>
-                    </text>
-                  </Show>
-                </box>
-              </Show>
-            </box>
+                </Show>
+              </box>
+            </Show>
           </box>
         </box>
         <box

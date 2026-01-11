@@ -6,13 +6,13 @@
     "darkStep3": "#1e1e1e",
     "darkStep4": "#282828",
     "darkStep5": "#323232",
-    "darkStep6": "#3c3c3c",
-    "darkStep7": "#484848",
-    "darkStep8": "#606060",
+    "darkStep6": "#505050",
+    "darkStep7": "#686868",
+    "darkStep8": "#808080",
     "darkStep9": "#fab283",
     "darkStep10": "#ffc09f",
-    "darkStep11": "#808080",
-    "darkStep12": "#eeeeee",
+    "darkStep11": "#a0a0a0",
+    "darkStep12": "#ffffff",
     "darkSecondary": "#5c9cf5",
     "darkAccent": "#9d7cd8",
     "darkRed": "#e06c75",
@@ -77,6 +77,10 @@
       "dark": "darkStep11",
       "light": "lightStep11"
     },
+    "selectedListItemText": {
+      "dark": "#1a1a1a",
+      "light": "#ffffff"
+    },
     "background": {
       "dark": "darkStep1",
       "light": "lightStep1"
@@ -88,6 +92,10 @@
     "backgroundElement": {
       "dark": "darkStep3",
       "light": "lightStep3"
+    },
+    "backgroundMenu": {
+      "dark": "darkStep4",
+      "light": "lightStep4"
     },
     "border": {
       "dark": "darkStep7",
