@@ -180,13 +180,7 @@ print_message() {
 
 check_version() {
     if command -v chad-code >/dev/null 2>&1; then
-        corethink_path=$(which chad-code)
-
-
-        ## TODO: check if version is installed
-        # installed_version=$(chad-code version)
-        installed_version="0.0.1"
-        installed_version=$(echo $installed_version | awk '{print $2}')
+        installed_version=$(chad-code --version 2>/dev/null)
 
         if [[ "$installed_version" != "$specific_version" ]]; then
             print_message info "${MUTED}Installed version: ${NC}$installed_version."
@@ -408,7 +402,7 @@ echo -e ""
 echo -e "cd <project>     ${MUTED}# Open directory${NC}"
 echo -e "chad-code   ${MUTED}# Run command${NC}"
 echo -e ""
-echo -e "${MUTED}For more information visit ${NC}https://corethink.ai/docs"
+echo -e "${MUTED}For more information visit ${NC}https://chadcode-docs.docsalot.dev/getting-started"
 echo -e ""
 echo -e ""
 
